@@ -1,4 +1,5 @@
 package-lock.json
-src/detectWord/tsstudy2.js
-src/RSPgame/tsstudy1.js
+src/detectWord/**.js
+src/RSPgame/RSPgame.js
+src/threeDice/**/**.js
 node_modules
