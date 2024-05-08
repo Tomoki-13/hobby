@@ -1,4 +1,3 @@
-//RSPgameをjsで書いた場合
 const readline = require('readline');
 
 function getInputNumberFromConsole(message) {

@@ -1,7 +1,7 @@
-//study1をタイプスクリプトで書いた場合
+//jsRSPgame.jsをタイプスクリプトで書いた場合一部変更済み
 import * as readline from 'readline';
 
-function getInputNumberFromConsole(message: string): Promise<number> {
+function getInput(message: string): Promise<number> {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -13,8 +13,8 @@ function getInputNumberFromConsole(message: string): Promise<number> {
             const number = parseFloat(answer);
             if (isNaN(number) || number > 2) {
                 console.error("入力された値が0,1,2以外の文字です。もう一度入力してください。");
-                getInputNumberFromConsole("あなたの手は:").then(resolve).catch(reject);
-            } else {
+                getInput("あなたの手は:").then(resolve).catch(reject);
+            } else {2
                 resolve(number);
             }
         });
@@ -22,22 +22,19 @@ function getInputNumberFromConsole(message: string): Promise<number> {
 }
 
 const determineWinner = (enemy: number, user: number, vicNum: number[]): number[] => {
-    if (enemy === user) {
+    if ((user - enemy + 3) % 3 == 0) {
         vicNum[0] = vicNum[0] + 1;
         console.log('あいこ');
-        console.log('あなたの勝ち数:' + vicNum[2] + ', あいての勝ち数' + vicNum[1]);
         return vicNum;
-    } else if ((enemy === 1 && user === 2) || (enemy === 0 && user === 1) || (enemy === 3 && user === 0)) {
+    } else if ((user - enemy + 3) % 3 == 1) {
         vicNum[0] = vicNum[0] + 1;
         vicNum[1] = vicNum[1] + 1;
         console.log('あなたの負け');
-        console.log('あなたの勝ち数:' + vicNum[2] + ', あいての勝ち数' + vicNum[1]);
         return vicNum;
-    } else if ((user === 1 && enemy === 2) || (user === 0 && enemy === 1) || (user === 3 && enemy === 0)) {
+    } else if ((user - enemy + 3) % 3 == 2) {
         vicNum[0] = vicNum[0] + 1;
         vicNum[2] = vicNum[2] + 1;
         console.log('あなたの勝ち');
-        console.log('あなたの勝ち数:' + vicNum[2] + ', あいての勝ち数' + vicNum[1]);
         return vicNum;
     }
     return vicNum;
@@ -47,11 +44,15 @@ const determineWinner = (enemy: number, user: number, vicNum: number[]): number[
     try {
         let vicNum: number[] = [1, 0, 0];
         while (vicNum[1] < 3 && vicNum[2] < 3) {
+            console.log();
+            console.log('あなたの勝ち数:' + vicNum[2] + ', あいての勝ち数:' + vicNum[1]);
             const getRandomInt = (max: number) => Math.floor(Math.random() * max);
             const enemy: number = getRandomInt(3);
             console.log(vicNum[0] + "戦目");
-            console.log("0:チョキ 1:パー 2:グー");
-            const user: number = await getInputNumberFromConsole("あなたの手は:");
+            console.log("0:グー 1:チョキ 2:パー");
+            const user: number = await getInput("あなたの手は:");
+            console.log("あいての手は:" + enemy);
+
             vicNum = determineWinner(enemy, user, vicNum);
         }
         if (vicNum[1] == 3) {
