@@ -32,7 +32,7 @@ const getInput = (message: string): Promise<string> =>{
         let enemyHand:string = '';
         let status:string = '';
         let rollNum = 3;
-
+        //userside
         while(status !== 'keep' && rollNum !== 0 && userHand != 'saikorogakoboreta'){
             for(let i = 0;i < 3;i++){
                 userDiceArray[i] = getRandomInt(6)+1;
@@ -48,6 +48,8 @@ const getInput = (message: string): Promise<string> =>{
             }
         }
         console.log();
+
+        //enemyside
         status = '';
         rollNum = 3;
         while(status !== 'keep' && rollNum !== 0 && enemyHand != 'saikorogakoboreta'){
@@ -60,14 +62,18 @@ const getInput = (message: string): Promise<string> =>{
             if(enemyHand !== 'saikorogakoboreta' || rollNum > 0){
                 let judge:string = compareHands(enemyHand,'yakunasi');
                 if(judge !== 'You win'){
+                    status = 'again';
                     console.log('again');
                     rollNum--;
                 } else {
+                    status = 'keep';
                     console.log('keep');
                 }
             }
         }
         console.log();
+
+        //result
         console.log('Your Hand:'+userHand);
         console.log('Enemy Hand:'+enemyHand);
         console.log(compareHands(userHand,enemyHand));
