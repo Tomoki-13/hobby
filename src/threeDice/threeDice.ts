@@ -33,18 +33,19 @@ const getInput = (message: string): Promise<string> =>{
         let status:string = '';
         let rollNum = 3;
         //userside
-        while(status !== 'keep' && rollNum !== 0 && userHand != 'saikorogakoboreta'){
+        while(status !== 'keep' && rollNum !== -1 && userHand != 'saikorogakoboreta'){
+            status = 'keep';
             for(let i = 0;i < 3;i++){
                 userDiceArray[i] = getRandomInt(6)+1;
             }
             console.log('Your Dice Num:' + userDiceArray[0] + ' ' + userDiceArray[1] + ' ' + userDiceArray[2]);
             userHand = judgeHand(userDiceArray,getRandomInt(100)+1);
             console.log('Your Hand:'+userHand);
-            if(enemyHand !== 'saikorogakoboreta' || rollNum > 0){
+            if(enemyHand !== 'saikorogakoboreta' && rollNum > 0){
+                status = await getInput("You can reroll the dice "+ rollNum + " times. Enter 'keep' or 'again': ");
                 if(status === 'again'){
                     rollNum--;
                 }
-                status = await getInput("You can reroll the dice "+ rollNum + " more times. Enter 'keep' or 'again': ");
             }
         }
         console.log();
