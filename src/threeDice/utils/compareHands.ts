@@ -1,6 +1,6 @@
 //役の強弱判定
 export const compareHands = (playerHand: string, enemyHand: string): string => {
-    const hands = ['pinsoro', 'zorome', 'sigoro', '6', '5', '4', '3', '2', '1', 'yakunasi', 'saikorogakoboreta', 'hihumi'];
+    const hands = ['pinsoro', 'zorome6','zorome5','zorome4','zorome3','zorome2', 'sigoro', '6', '5', '4', '3', '2', '1', 'yakunasi', 'saikorogakoboreta', 'hihumi'];
     const playerRank = hands.indexOf(playerHand);
     const opponentRank = hands.indexOf(enemyHand);
 
