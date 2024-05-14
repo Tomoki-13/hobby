@@ -9,8 +9,8 @@ export const judgeHand =(dice: number[],randomNum:Number): string => {
             if(dice[0]===1){
                 return 'pinsoro';
             }else{
-                console.log('zorome');
-                return 'zorome';
+                console.log('zorome'+dice[0]);
+                return 'zorome'+dice[0];
             }
         } else {
             //2つの目が揃っている場合
